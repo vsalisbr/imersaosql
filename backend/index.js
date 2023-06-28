@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.use('/clientes', routes.clientes);
+app.use('/produtos', routes.produtos);
 
 app.get('/', (req, res) => {
   res.send('Estou funcionando!!!');

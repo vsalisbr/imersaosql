@@ -28,3 +28,28 @@ main {
     width: 40px;
     text-align: center;
 }
+
+.card-situation-activated{
+    padding: 4px 6px;
+    border-radius: 3px;
+    background-color: rgb(90, 160, 90);
+    color: white;
+    font-size: 12px;
+}
+  
+.card-situation-disabled{
+    padding: 4px 6px;
+    border-radius: 3px;
+    background-color: rgb(250, 90, 90);
+    color: white;
+    font-size: 12px;
+}
+
+.table-id {
+    width: 100px;
+}
+
+.table-status {
+    width: 250px;
+    text-align: center;
+}

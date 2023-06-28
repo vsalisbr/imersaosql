@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Table } from 'react-bootstrap';
 import useCadastrarCliente from '../Hooks/Clientes/useCadastrarCliente/useCadastrarCliente';
 import useEditarCliente from '../Hooks/Clientes/useEditarCliente/useEditarCliente';
+import useDeletarCliente from '../Hooks/Clientes/useDeletarCliente/useDeletarCliente';
 
 function Clientes() {
   const [clientes, setClientes] = useState([]);
@@ -9,16 +10,18 @@ function Clientes() {
 
   const { CadastrarClienteModal, setShowModal: setShowModalNovo, showModal: showModalNovo } = useCadastrarCliente();
   const { EditarClienteModal, setShowModal: setShowModalEditar, showModal: showModalEditar } = useEditarCliente(clienteSelecionado);
+  const { DeletarClienteModal, setShowModal: setShowModalDeletar, showModal: showModalDeletar } = useDeletarCliente(clienteSelecionado);
 
   useEffect(() => {
     getClientes();
   }, []);
 
   useEffect(() => {
-    if(!showModalNovo && !showModalEditar) {
+    if(!showModalNovo && !showModalEditar && !showModalDeletar) {
+      setClienteSelecionado(null);
       getClientes();
     }
-  }, [showModalNovo, showModalEditar]);
+  }, [showModalNovo, showModalEditar, showModalDeletar]);
 
   const getClientes = () => {
     fetch('http://localhost:9090/clientes')
@@ -35,8 +38,9 @@ function Clientes() {
         <thead>
           <tr>
             <th className='table-check'>#</th>
-            <th>ID</th>
-            <th>Nome</th>
+            <th className='table-id'>ID</th>
+            <th className='table-name'>Nome</th>
+            <th className='table-status'>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -67,6 +71,13 @@ function Clientes() {
               </td>
               <td>{cliente.CLIENTES_ID}</td>
               <td>{cliente.CLIENTE_NOME}</td>
+              <td className='table-status'>
+                <span 
+                  className={cliente.CLIENTE_ATIVO ? 'card-situation-activated' : 'card-situation-disabled'}
+                >
+                  {cliente.CLIENTE_ATIVO ? 'Ativado' : 'Desativado'}
+                </span>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -81,7 +92,8 @@ function Clientes() {
         </button>
         <button 
           className='btn btn-danger'
-          disabled={clienteSelecionado === null}        
+          disabled={clienteSelecionado === null}     
+          onClick={() => setShowModalDeletar(true)}
         >
           Excluir
         </button>
@@ -94,6 +106,7 @@ function Clientes() {
       </div>
       <CadastrarClienteModal />
       <EditarClienteModal />
+      <DeletarClienteModal />
     </>
   );
 }
