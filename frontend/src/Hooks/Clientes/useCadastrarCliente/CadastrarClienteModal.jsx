@@ -3,14 +3,31 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import useInput from '../useInput/useInput';
+import useInput from '../../useInput/useInput';
 
 function CadastrarClienteModal ({ showModal, setShowModal }) {
   const nome = useInput('');
   const [clienteAtivo, setClienteAtivo] = useState(true);
 
   const handleConfirm = () => {
-    setShowModal(false);
+    const { value: cliente_nome } = nome;
+    const cliente_ativo = clienteAtivo ? -1 : 0;
+    const endPoint = 'http://localhost:9090/clientes/novo';
+    const body = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cliente_nome, cliente_ativo }),
+    };
+    fetch(endPoint, body)
+      .then(() => {
+        setShowModal(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowModal(false);
+      });
   };
 
   return (

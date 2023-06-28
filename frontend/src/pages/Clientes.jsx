@@ -1,21 +1,30 @@
 import React, {useState, useEffect} from 'react';
 import { Table } from 'react-bootstrap';
-import useCadastrarCliente from '../Hooks/useCadastrarCliente/useCadastrarCliente';
+import useCadastrarCliente from '../Hooks/Clientes/useCadastrarCliente/useCadastrarCliente';
+import useEditarCliente from '../Hooks/Clientes/useEditarCliente/useEditarCliente';
 
 function Clientes() {
   const [clientes, setClientes] = useState([]);
   const [clienteSelecionado, setClienteSelecionado] = useState(null);
 
-  const { CadastrarClienteModal, setShowModal } = useCadastrarCliente();
+  const { CadastrarClienteModal, setShowModal: setShowModalNovo, showModal: showModalNovo } = useCadastrarCliente();
+  const { EditarClienteModal, setShowModal: setShowModalEditar, showModal: showModalEditar } = useEditarCliente(clienteSelecionado);
 
   useEffect(() => {
-    setClientes([
-      { CLIENTES_ID: 1, CLIENTE_NOME: 'Cliente 1' },
-      { CLIENTES_ID: 2, CLIENTE_NOME: 'Cliente 2' },
-      { CLIENTES_ID: 3, CLIENTE_NOME: 'Cliente 3' },
-      { CLIENTES_ID: 4, CLIENTE_NOME: 'Cliente 4' },
-    ]);
+    getClientes();
   }, []);
+
+  useEffect(() => {
+    if(!showModalNovo && !showModalEditar) {
+      getClientes();
+    }
+  }, [showModalNovo, showModalEditar]);
+
+  const getClientes = () => {
+    fetch('http://localhost:9090/clientes')
+      .then(response => response.json())
+      .then( data => setClientes(data));
+  };
   
   return (
     <>
@@ -66,6 +75,7 @@ function Clientes() {
         <button 
           className='btn btn-warning'
           disabled={clienteSelecionado === null}
+          onClick={() => setShowModalEditar(true)}
         >
           Editar
         </button>
@@ -77,12 +87,13 @@ function Clientes() {
         </button>
         <button 
           className='btn btn-success'
-          onClick={() => setShowModal(true)}
+          onClick={() => setShowModalNovo(true)}
         >
           Novo
         </button>
       </div>
       <CadastrarClienteModal />
+      <EditarClienteModal />
     </>
   );
 }

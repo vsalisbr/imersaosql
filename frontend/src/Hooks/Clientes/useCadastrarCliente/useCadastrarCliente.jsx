@@ -7,6 +7,7 @@ function useCadastrarCliente() {
   return {
     CadastrarClienteModal: () => CadastrarClienteModal({ showModal, setShowModal }),
     setShowModal,
+    showModal
   };
 }
 
