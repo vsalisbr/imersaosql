@@ -1,5 +1,21 @@
 version: '3'
 services:
+  database:
+    build: database/
+    restart: on-failure
+    ports:
+      - 9010:3050
+    volumes:
+      - ./database/data:/firebird/data/
+  backend:
+    build: backend/
+    restart: on-failure
+    ports:
+      - 9090:8090
+    volumes:
+      - ./backend/src/:/app/src
+    depends_on:
+      - database
   frontend:
     build: frontend/
     restart: on-failure
@@ -9,10 +25,3 @@ services:
       - ./frontend/src/:/app/src
     depends_on:
       - backend
-  backend:
-    build: backend/
-    restart: on-failure
-    ports:
-      - 9090:8090
-    volumes:
-      - ./backend/src/:/app/src
