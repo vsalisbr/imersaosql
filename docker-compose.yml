@@ -1,0 +1,18 @@
+version: '3'
+services:
+  frontend:
+    build: frontend/
+    restart: on-failure
+    ports:
+      - 9080:8080
+    volumes:
+      - ./frontend/src/:/app/src
+    depends_on:
+      - backend
+  backend:
+    build: backend/
+    restart: on-failure
+    ports:
+      - 9090:8090
+    volumes:
+      - ./backend/src/:/app/src
