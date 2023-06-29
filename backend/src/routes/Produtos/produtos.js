@@ -40,9 +40,9 @@ router.post('/novo', async (req, res) => {
 
 router.put('/editar', async (req, res) => {
   try {
-    const { clientes_id, cliente_nome, cliente_ativo } = req.body;
+    const { produto_nome, produto_preco_venda, produto_preco_custo, produtos_id} = req.body;
     const query = 'UPDATE produtos SET produto_nome = ?, produto_preco_venda = ?, produto_preco_custo = ? WHERE produtos_id = ?';
-    await dbQuery(query, [cliente_nome, cliente_ativo, clientes_id]);
+    await dbQuery(query, [produto_nome, produto_preco_venda, produto_preco_custo, produtos_id]);
     res.status(200).send('Produto atualizado com sucesso');
   } catch (err) {
     res.status(500).send(err);

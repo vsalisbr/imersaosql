@@ -4,28 +4,28 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import useInput from '../../useInput/useInput';
 
-function DeletarClienteModal ({ showModal, setShowModal, clientes_id }) {
-  const nome = useInput('');
-  const {setValue} = nome;
+function DeletarProdutoModal ({ showModal, setShowModal, produtos_id }) {
+  const produtoNome = useInput('');
+  const {setValue} = produtoNome;
 
   useEffect(() => {
     if(showModal){
-      const endPoint = `http://localhost:9090/clientes/${clientes_id}`;
+      const endPoint = `http://localhost:9090/produtos/${produtos_id}`;
       fetch(endPoint)
         .then((res) => res.json())
         .then((data) => {
-          setValue(data.CLIENTE_NOME);
+          setValue(data.PRODUTO_NOME);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [showModal, setValue, clientes_id]);
+  }, [showModal, setValue, produtos_id]);
 
 
 
   const handleConfirm = () => {
-    const endPoint = `http://localhost:9090/clientes/deletar/${clientes_id}`;
+    const endPoint = `http://localhost:9090/produtos/deletar/${produtos_id}`;
     fetch(endPoint, {method: 'DELETE'})
       .then(() => {
         setShowModal(false);
@@ -39,11 +39,11 @@ function DeletarClienteModal ({ showModal, setShowModal, clientes_id }) {
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)} backdrop="static">
       <Modal.Header>
-        <Modal.Title>Deletar Cliente</Modal.Title>
+        <Modal.Title>Deletar Produto</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Confirma deletar o cliente:</p>
-        <p>{clientes_id} - {nome.value}</p>
+        <p>Confirma deletar o produto:</p>
+        <p>{produtos_id} - {produtoNome.value}</p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShowModal(false)}>
@@ -57,10 +57,10 @@ function DeletarClienteModal ({ showModal, setShowModal, clientes_id }) {
   );
 }
 
-DeletarClienteModal.propTypes = {
+DeletarProdutoModal.propTypes = {
   setShowModal: PropTypes.func,
   showModal: PropTypes.bool,
   clientes_id: PropTypes.number || null,
 }.isRequired;
 
-export default DeletarClienteModal;
+export default DeletarProdutoModal;

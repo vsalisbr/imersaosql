@@ -7,27 +7,24 @@ import useInput from '../../useInput/useInput';
 
 function EditarClienteModal ({ showModal, setShowModal, clientes_id }) {
   const nome = useInput('');
+  const {setValue} = nome;
   const [clienteAtivo, setClienteAtivo] = useState(false);
 
   useEffect(() => {
     if(showModal){
-      getCliente();
+      const endPoint = `http://localhost:9090/clientes/${clientes_id}`;
+      fetch(endPoint)
+        .then((res) => res.json())
+        .then((data) => {
+          const ativo = data.CLIENTE_ATIVO === -1;
+          setValue(data.CLIENTE_NOME);
+          setClienteAtivo(ativo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }, [showModal]);
-
-  const getCliente = async () => {
-    const endPoint = `http://localhost:9090/clientes/${clientes_id}`;
-    await fetch(endPoint)
-      .then((res) => res.json())
-      .then((data) => {
-        const ativo = data.CLIENTE_ATIVO === -1;
-        nome.setValue(data.CLIENTE_NOME);
-        setClienteAtivo(ativo);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  }, [showModal, setValue, clientes_id]);
 
   const handleConfirm = () => {
     const { value: cliente_nome } = nome;
