@@ -9,7 +9,7 @@ function DeletarVendaModal ({ showModal, setShowModal, vendas_id }) {
   const [venda, setVenda] = useState(null);
   useEffect(() => {
     if(showModal){
-      const endPoint = `http://localhost:9090/vendas/${vendas_id}`;
+      const endPoint = `http://localhost:9090/vendas/byid/${vendas_id}`;
       fetch(endPoint)
         .then((res) => res.json())
         .then((data) => {

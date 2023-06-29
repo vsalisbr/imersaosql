@@ -5,6 +5,7 @@ import usePesquisarCliente from '../Hooks/Clientes/usePesquisarCliente/usePesqui
 import usePesquisarProduto from '../Hooks/Produtos/usePesquisarProduto/usePesquisarProduto';
 import { Table, Button } from 'react-bootstrap';
 import formatarValorParaReal from '../utils/formatarValorParaReal.js';
+import formatarDataParaBanco from '../utils/formatarDataParaBanco';
 
 function CrudVenda() {
   const { vendasId } = useParams();
@@ -13,16 +14,16 @@ function CrudVenda() {
     VENDAS_ID: '',
     CLIENTES_ID: '',
     CLIENTE_NOME: '',
-    VENDA_DATA: '',
-    VENDA_VALOR: '',
+    VENDA_DATA: formatarDataParaBanco(new Date()),
+    VENDA_VALOR: 0,
     ITENS_VENDA: []
   });
-
   const [produto, setProduto] = useState({
     PRODUTOS_ID: '',
     PRODUTO_NOME: '',
     ITEM_VENDA_PRECO: '',
     ITEM_VENDA_QTD: '',
+    ITEM_VENDA_CUSTO: '',
     PRODUTO_SENDO_EDITADO: false,
     PRODUTO_PARA_EDITAR_INDEX: null,
   });
@@ -48,11 +49,13 @@ function CrudVenda() {
         PRODUTOS_ID: novoProduto.PRODUTOS_ID, 
         PRODUTO_NOME: novoProduto.PRODUTO_NOME,
         ITEM_VENDA_PRECO: novoProduto.PRODUTO_PRECO_VENDA,
+        ITEM_VENDA_CUSTO: novoProduto.PRODUTO_PRECO_CUSTO,
         ITEM_VENDA_QTD: 1,
       });
     } else {
       setProduto({ 
-        ...produto, 
+        ...produto,
+        ITEM_VENDA_CUSTO: novoProduto.PRODUTO_PRECO_CUSTO,
         PRODUTOS_ID: novoProduto.PRODUTOS_ID, 
         PRODUTO_NOME: novoProduto.PRODUTO_NOME,
       });
@@ -66,10 +69,13 @@ function CrudVenda() {
 
   useEffect(() => {
     if(vendasId && vendasId !== 'novavenda') {
-      fetch(`http://localhost:9090/vendas/${vendasId}`)
+      fetch(`http://localhost:9090/vendas/byid/${vendasId}`)
         .then(response => response.json())
         .then(data =>{
-          setVenda(data);
+          setVenda({
+            ...data,
+            VENDA_DATA: formatarDataParaBanco(data.VENDA_DATA),
+          });
         })
         .catch(() => navigate('/vendas') );
     }
@@ -107,9 +113,41 @@ function CrudVenda() {
       PRODUTO_NOME: '',
       ITEM_VENDA_PRECO: '',
       ITEM_VENDA_QTD: '',
+      ITEM_VENDA_CUSTO: '',
       PRODUTO_SENDO_EDITADO: false,
       PRODUTO_PARA_EDITAR_INDEX: null,
     });
+  };
+
+
+  const handleSalvarVenda = () => {
+    const { CLIENTES_ID, VENDA_DATA, ITENS_VENDA } = venda;
+
+    const data = {
+      clientes_id: CLIENTES_ID,
+      venda_data: VENDA_DATA,
+      venda_valor: venda.ITENS_VENDA.reduce((acc, item) => acc + item.ITEM_VENDA_PRECO * item.ITEM_VENDA_QTD, 0),
+      itens_venda: ITENS_VENDA
+    };
+
+    const endpoint = vendasId !== 'novavenda' ? `http://localhost:9090/vendas/editar/${vendasId}` : 'http://localhost:9090/vendas/novo';
+
+    fetch(endpoint, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => {
+        if (!response.ok) {
+          console.error('Erro ao salvar a venda!');
+        } 
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .finally(() => navigate('/vendas'));
   };
 
   return (
@@ -264,8 +302,8 @@ function CrudVenda() {
         </button>
         <button 
           className='btn btn-success'
-          onClick={() => console.log('Salvar')}
-          disabled={produto.PRODUTO_SENDO_EDITADO}
+          onClick={() => handleSalvarVenda()}
+          disabled={produto.PRODUTO_SENDO_EDITADO || venda.ITENS_VENDA?.length === 0}
         >
           Salvar
         </button>
