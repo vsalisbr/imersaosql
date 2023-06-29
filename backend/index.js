@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 app.use('/clientes', routes.clientes);
 app.use('/produtos', routes.produtos);
+app.use('/vendas', routes.vendas);
 
 app.get('/', (req, res) => {
   res.send('Estou funcionando!!!');
