@@ -21,7 +21,7 @@ Este é um guia básico para executar o projeto. Certifique-se de ter o Docker i
 4. Para a aplicação funcionar corretamente é obrigatório criar o banco de dados executando o seguinte comando:
 
    ```bash
-   docker exec imersaosql-base-database-1 /usr/local/firebird/bin/isql -q -i /tmp/criar_banco.sql
+   docker exec imersaosql-database-1 /usr/local/firebird/bin/isql -q -i /tmp/criar_banco.sql
    ```
 
    Este comando executa um script SQL para criar o banco de dados inicial da aplicação no contêiner do banco de dados. É importante destacar que o banco da aplicação fica salvo em um volume, então você não precisa recriá-lo a cada execução.
