@@ -26,6 +26,6 @@ Este é um guia básico para executar o projeto. Certifique-se de ter o Docker i
 
    Este comando executa um script SQL para criar o banco de dados inicial da aplicação no contêiner do banco de dados. É importante destacar que o banco da aplicação fica salvo em um volume, então você não precisa recriá-lo a cada execução.
 
-Após a conclusão desses passos, o projeto estará em execução com os contêineres configurados corretamente. Você pode acessar a aplicação conforme necessário.
+Após a conclusão desses passos, o projeto estará em execução com os contêineres configurados corretamente.
 
 Acesse o frontend em: http://localhost:9080/
