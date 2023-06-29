@@ -28,6 +28,4 @@ Este é um guia básico para executar o projeto. Certifique-se de ter o Docker i
 
 Após a conclusão desses passos, o projeto estará em execução com os contêineres configurados corretamente. Você pode acessar a aplicação conforme necessário.
 
-Certifique-se de ajustar os comandos e os nomes dos contêineres de acordo com a estrutura do seu projeto.
-
-**Observação:** Este README fornece apenas instruções básicas para executar o projeto. Dependendo do projeto em questão, pode ser necessário fornecer mais detalhes sobre configurações adicionais, variáveis de ambiente, portas de acesso, entre outros. Certifique-se de atualizar este arquivo conforme necessário para incluir todas as informações relevantes para a execução correta do projeto.
+Acesse o frontend em: http://localhost:9080/
