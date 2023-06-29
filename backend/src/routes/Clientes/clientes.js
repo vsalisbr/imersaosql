@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:clientes_id', async (req, res) => {
+router.get('/byid/:clientes_id', async (req, res) => {
   try {
     const clientesId = req.params.clientes_id;
     let query = 'SELECT cliente_nome, cliente_ativo FROM clientes WHERE clientes_id = ?';
@@ -26,6 +26,19 @@ router.get('/:clientes_id', async (req, res) => {
     res.status(500).send(err);
   }
 });
+
+router.get('/pesquisar', async (req, res) => {
+  try {
+    const searchTerm = req.query.term;
+    const uppercaseSearchTerm = searchTerm.toUpperCase();
+    const query = `SELECT c.clientes_id, c.cliente_nome, c.cliente_ativo FROM clientes c WHERE (UPPER(c.cliente_nome) LIKE '%${uppercaseSearchTerm}%')`;
+    const result = await dbQuery(query, []);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 
 router.post('/novo', async (req, res) => {
   try {
@@ -59,6 +72,5 @@ router.delete('/deletar/:clientes_id', async (req, res) => {
     res.status(500).send(err);
   }
 });
-
 
 export default router;

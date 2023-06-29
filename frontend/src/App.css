@@ -58,3 +58,7 @@ main {
     width: 250px;
     text-align: center;
 }
+
+.table-status button {
+    margin: 0 6px;
+}

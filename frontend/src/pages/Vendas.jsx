@@ -84,7 +84,7 @@ function Vendas() {
           disabled={vendaSelecionada === null}
           onClick={() => navigate(`/vendas/${vendaSelecionada}`)}
         >
-          Detalhar
+          Detalhar/Editar
         </button>
         <button 
           className='btn btn-danger'

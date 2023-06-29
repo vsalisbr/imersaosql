@@ -10,7 +10,7 @@ function DeletarClienteModal ({ showModal, setShowModal, clientes_id }) {
 
   useEffect(() => {
     if(showModal){
-      const endPoint = `http://localhost:9090/clientes/${clientes_id}`;
+      const endPoint = `http://localhost:9090/clientes/byid/${clientes_id}`;
       fetch(endPoint)
         .then((res) => res.json())
         .then((data) => {

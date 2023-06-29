@@ -5,6 +5,13 @@
   margin-bottom: 8px;
 }
 
+.select-produto {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
 legend {
   margin-bottom: 10px;
   font-size: 15px;
@@ -17,7 +24,24 @@ legend {
   font-size: 14px;
 }
 
+.section-search-produto {
+  display: flex;
+  align-items: end;
+  font-size: 14px;
+  justify-content: space-between;
+}
 .div-cliente-id{
+  width: 150px;
+  margin-right: 8px;
+}
+
+.div-search-produto{
+  display: flex;
+  width: 600px;
+  margin-right: 8px;
+}
+
+.div-search-produto-id{
   width: 150px;
   margin-right: 8px;
 }
@@ -60,4 +84,13 @@ legend {
 
 .btn-ico i {
   color: rgb(40, 40, 40);
+}
+
+.produto-info {
+  display: flex;
+  align-items: end;
+}
+
+.btn-cancelar-edit {
+  margin-right: 6px;
 }

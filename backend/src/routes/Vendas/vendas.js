@@ -16,12 +16,18 @@ router.get('/', async (req, res) => {
 router.get('/:vendas_id', async (req, res) => {
   try {
     const vendasId = req.params.vendas_id;
-    let query = 'select v.vendas_id, v.clientes_id, c.cliente_nome, v.venda_data, v.venda_valor from vendas v join clientes c on c.clientes_id = v.clientes_id where v.vendas_id = ?';
-    const result = await dbQuery(query, [vendasId]);    
-    if (result.length === 0) {
+    let query1 = 'select v.vendas_id, v.clientes_id, c.cliente_nome, v.venda_data, v.venda_valor from vendas v join clientes c on c.clientes_id = v.clientes_id where v.vendas_id = ?';
+    let query2 = 'select i.produtos_id, p.produto_nome, i.item_venda_qtd, i.item_venda_preco from itens_vendas i join produtos p on p.produtos_id = i.produtos_id where i.vendas_id = ?';
+    const venda = await dbQuery(query1, [vendasId]);
+    const itens = await dbQuery(query2, [vendasId]);    
+    if (venda.length !== 1) {
       return res.status(404).send('Venda não encontrada.');
     }
-    res.status(200).json(result[0]);
+    const result = {
+      ...venda[0],
+      ITENS_VENDA: [...itens] 
+    }; 
+    res.status(200).json(result);
   } catch (err) {
     res.status(500).send(err);
   }

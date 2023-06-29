@@ -1,0 +1,8 @@
+.div-input-btn-search{
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.div-input-btn-search input{
+  margin-right: 6px;
+}
