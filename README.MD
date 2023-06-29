@@ -8,8 +8,8 @@ Este é um guia básico para executar o projeto. Certifique-se de ter o Docker i
 
 ## Passos para execução
 
-1. Abra o terminal em sua máquina.
-2. Navegue até a pasta raiz do projeto onde se encontra o arquivo `docker-compose.yml`.
+1. Faça o clone do projeto em sua máquina.
+2. Pelo terminal, navegue até a pasta raiz do projeto onde se encontra o arquivo `docker-compose.yml`.
 3. Execute o seguinte comando para construir e executar os contêineres do projeto em segundo plano:
 
    ```bash
