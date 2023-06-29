@@ -3,6 +3,7 @@ import { Table } from 'react-bootstrap';
 import useCadastrarProduto from '../Hooks/Produtos/useCadastrarProduto/useCadastrarProduto';
 import useEditarProduto from '../Hooks/Produtos/useEditarProduto/useEditarProduto';
 import useDeletarProduto from '../Hooks/Produtos/useDeletarProduto/useDeletarProduto';
+import formatarValorParaReal from '../utils/formatarValorParaReal';
 
 function Produtos() {
   const [produtos, setProdutos] = useState([]);
@@ -72,8 +73,8 @@ function Produtos() {
               </td>
               <td>{produto.PRODUTOS_ID}</td>
               <td>{produto.PRODUTO_NOME}</td>
-              <td>{produto.PRODUTO_PRECO_CUSTO}</td>
-              <td>{produto.PRODUTO_PRECO_VENDA}</td>
+              <td>{formatarValorParaReal(produto.PRODUTO_PRECO_CUSTO)}</td>
+              <td>{formatarValorParaReal(produto.PRODUTO_PRECO_VENDA)}</td>
             </tr>
           ))}
         </tbody>

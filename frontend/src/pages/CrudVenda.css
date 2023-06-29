@@ -1,0 +1,45 @@
+.select-cliente {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+legend {
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: rgb(30, 30, 30);
+}
+
+.section-search-cliente {
+  display: flex;
+  align-items: end;
+  font-size: 14px;
+  width: 100%;
+}
+
+.input-cliente-id {
+  height: 30px;
+  width: 30px;
+  font-size: 15px;
+  color: rgb(30, 30, 30);
+  text-align: center;
+  margin-right: 8px;
+}
+
+.input-cliente-name {
+  height: 30px;
+  font-size: 15px;
+  color: rgb(30, 30, 30);
+  text-align: left;
+  margin-right: 8px;
+  flex-grow: 1;
+}
+
+.btn-search {
+  display: flex;
+  height: 30px;
+  width: 30px;
+  justify-content: center;
+  align-items: center;
+}

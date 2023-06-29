@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Clientes from './pages/Clientes';
 import Produtos from './pages/Produtos';
 import Vendas from './pages/Vendas';
+import CrudVenda from './pages/CrudVenda';
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
           <Route
             path="/vendas"
             element={<Vendas />}
+          />
+          <Route
+            path="/vendas/:vendasId"
+            element={<CrudVenda />}
           />
         </Routes>
       </main>
