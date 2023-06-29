@@ -133,7 +133,7 @@ function CrudVenda() {
     const endpoint = vendasId !== 'novavenda' ? `http://localhost:9090/vendas/editar/${vendasId}` : 'http://localhost:9090/vendas/novo';
 
     fetch(endpoint, {
-      method: 'PUT',
+      method: vendasId !== 'novavenda' ? 'PUT' : 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
