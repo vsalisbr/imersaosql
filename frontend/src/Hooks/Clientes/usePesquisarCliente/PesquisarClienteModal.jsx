@@ -15,7 +15,7 @@ const PesquisarClienteModal = ({ showModal, setShowModal, mudarCliente }) => {
       const data = await response.json();
       setSearchResult(data);
     } catch (error) {
-      console.error('Error searching for clients:', error);
+      console.error('Erro:', error);
     }
   };
 

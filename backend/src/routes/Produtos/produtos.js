@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:produtos_id', async (req, res) => {
+router.get('/byid/:produtos_id', async (req, res) => {
   try {
     const produtosId = req.params.produtos_id;
     let query = 'select p.produtos_id, p.produto_nome, p.produto_preco_venda, p.produto_preco_custo from produtos p where p.produtos_id = ?';
@@ -22,6 +22,18 @@ router.get('/:produtos_id', async (req, res) => {
       return res.status(404).send('Produto não encontrado.');
     }
     res.status(200).json(result[0]);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+router.get('/pesquisar', async (req, res) => {
+  try {
+    const searchTerm = req.query.term;
+    const uppercaseSearchTerm = searchTerm.toUpperCase();
+    const query = `SELECT p.produtos_id, p.produto_nome, p.produto_preco_custo, p.produto_preco_venda FROM produtos p WHERE (UPPER(p.produto_nome) LIKE '%${uppercaseSearchTerm}%')`;
+    const result = await dbQuery(query, []);
+    res.status(200).json(result);
   } catch (err) {
     res.status(500).send(err);
   }

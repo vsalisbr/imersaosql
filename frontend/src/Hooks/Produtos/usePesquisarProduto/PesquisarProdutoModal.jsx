@@ -6,31 +6,30 @@ import './PesquisarProdutoModal.css';
 const PesquisarProdutoModal = ({ showModal, setShowModal, mudarProduto }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResult, setSearchResult] = useState([]);
-  const [selectedClient, setSelectedClient] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:9090/clientes/pesquisar/?term=${searchTerm}`);
-
+      const response = await fetch(`http://localhost:9090/produtos/pesquisar/?term=${searchTerm}`);
       const data = await response.json();
       setSearchResult(data);
     } catch (error) {
-      console.error('Error searching for clients:', error);
+      console.error('Erro:', error);
     }
   };
 
-  const handleSelectClient = (client) => {
-    if (selectedClient && selectedClient.CLIENTES_ID === client.CLIENTES_ID) {
-      setSelectedClient(null);
+  const handleSelectProduct = (product) => {
+    if (selectedProduct && selectedProduct.PRODUTOS_ID === product.PRODUTOS_ID) {
+      setSelectedProduct(null);
     } else {
-      setSelectedClient(client);
+      setSelectedProduct(product);
     }
   };
 
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)} size='xl'>
       <Modal.Header closeButton>
-        <Modal.Title>Pesquisar Cliente</Modal.Title>
+        <Modal.Title>Pesquisar Produto</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className='div-input-btn-search'>
@@ -42,38 +41,34 @@ const PesquisarProdutoModal = ({ showModal, setShowModal, mudarProduto }) => {
             placeholder="Digite o termo de pesquisa"
           />
           <Button variant="primary" onClick={handleSearch}>
-          Pesquisar
+            Pesquisar
           </Button>
         </div>
         {searchResult.length > 0 ? (
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>#</th>
+                <th></th>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>Ativo</th>
+                <th>Preço de Custo</th>
+                <th>Preço de Venda</th>
               </tr>
             </thead>
             <tbody>
-              {searchResult.map((client) => (
-                <tr key={client.CLIENTES_ID} onClick={() => handleSelectClient(client)}>
+              {searchResult.map((product) => (
+                <tr key={product.PRODUTOS_ID} onClick={() => handleSelectProduct(product)}>
                   <td>
                     <input
                       type="checkbox"
-                      checked={(selectedClient && selectedClient.CLIENTES_ID === client.CLIENTES_ID) || false}
-                      onChange={() => handleSelectClient(client)}
+                      checked={(selectedProduct && selectedProduct.PRODUTOS_ID === product.PRODUTOS_ID) || false}
+                      onChange={() => handleSelectProduct(product)}
                     />
                   </td>
-                  <td>{client.CLIENTES_ID}</td>
-                  <td>{client.CLIENTE_NOME}</td>
-                  <td className='table-status'>
-                    <span 
-                      className={client.CLIENTE_ATIVO ? 'card-situation-activated' : 'card-situation-disabled'}
-                    >
-                      {client.CLIENTE_ATIVO ? 'Ativado' : 'Desativado'}
-                    </span>
-                  </td>
+                  <td>{product.PRODUTOS_ID}</td>
+                  <td>{product.PRODUTO_NOME}</td>
+                  <td>{product.PRODUTO_PRECO_CUSTO}</td>
+                  <td>{product.PRODUTO_PRECO_VENDA}</td>
                 </tr>
               ))}
             </tbody>
@@ -86,10 +81,10 @@ const PesquisarProdutoModal = ({ showModal, setShowModal, mudarProduto }) => {
         <Button variant="secondary" onClick={() => setShowModal(false)}>
           Cancelar
         </Button>
-        <Button 
-          variant="success" 
-          disabled={!selectedClient}
-          onClick={() => mudarProduto(selectedClient)}
+        <Button
+          variant="success"
+          disabled={!selectedProduct}
+          onClick={() => mudarProduto(selectedProduct)}
         >
           Confirmar
         </Button>

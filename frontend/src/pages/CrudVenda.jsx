@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './CrudVenda.css';
 import usePesquisarCliente from '../Hooks/Clientes/usePesquisarCliente/usePesquisarCliente';
+import usePesquisarProduto from '../Hooks/Produtos/usePesquisarProduto/usePesquisarProduto';
 import { Table, Button } from 'react-bootstrap';
+import formatarValorParaReal from '../utils/formatarValorParaReal.js';
 
 function CrudVenda() {
   const { vendasId } = useParams();
@@ -31,11 +33,36 @@ function CrudVenda() {
   };
 
   const mudarCliente = (cliente) => {
-    setVenda({ ...venda, CLIENTES_ID: cliente.CLIENTES_ID, CLIENTE_NOME: cliente.CLIENTE_NOME });
+    setVenda({ 
+      ...venda, 
+      CLIENTES_ID: cliente.CLIENTES_ID, 
+      CLIENTE_NOME: cliente.CLIENTE_NOME
+    });
     setShowModalPesquisarCliente(false);
   };
 
+  const mudarProduto = (novoProduto) => {
+    if(!produto.PRODUTO_SENDO_EDITADO){
+      setProduto({ 
+        ...produto, 
+        PRODUTOS_ID: novoProduto.PRODUTOS_ID, 
+        PRODUTO_NOME: novoProduto.PRODUTO_NOME,
+        ITEM_VENDA_PRECO: novoProduto.PRODUTO_PRECO_VENDA,
+        ITEM_VENDA_QTD: 1,
+      });
+    } else {
+      setProduto({ 
+        ...produto, 
+        PRODUTOS_ID: novoProduto.PRODUTOS_ID, 
+        PRODUTO_NOME: novoProduto.PRODUTO_NOME,
+      });
+    }
+    setShowModalPesquisarProduto(false);
+  };
+
   const { PesquisarClienteModal, setShowModal: setShowModalPesquisarCliente } = usePesquisarCliente(mudarCliente);
+
+  const { PesquisarProdutoModal, setShowModal: setShowModalPesquisarProduto } = usePesquisarProduto(mudarProduto);
 
   useEffect(() => {
     if(vendasId && vendasId !== 'novavenda') {
@@ -88,7 +115,12 @@ function CrudVenda() {
   return (
     <>
       <div className='page-title'>
-        {vendasId !== 'novavenda' ? `Exibindo Venda ID ${vendasId}` : 'Nova Venda'}
+        <span>
+          {vendasId !== 'novavenda' ? `Exibindo Venda ID ${vendasId}` : 'Nova Venda'}
+        </span>        
+        <span>
+            Valor total da Venda: {formatarValorParaReal(venda.ITENS_VENDA?.reduce((acc, item) => acc + (item.ITEM_VENDA_PRECO * item.ITEM_VENDA_QTD), 0))}
+        </span>
       </div>     
 
       <fieldset className="select-cliente">
@@ -147,7 +179,7 @@ function CrudVenda() {
             />
             <button
               className="btn-ico"
-              onClick={() => setShowModalPesquisarCliente(true)}
+              onClick={() => setShowModalPesquisarProduto(true)}
             >
               <i className="bi bi-search" />
             </button>
@@ -164,7 +196,7 @@ function CrudVenda() {
             <input
               className="form-control input-cliente-name"
               type="text"
-              name="ITEM_VENDA_PRECO"
+              name="ITEM_VENDA_PRECO"              
               value={produto.ITEM_VENDA_PRECO}
               onChange={handleChangeProduto}
               placeholder="Preço"
@@ -174,7 +206,11 @@ function CrudVenda() {
                 Cancelar
               </Button>
             )}
-            <Button variant="primary" onClick={() => handleIncluirItem()}>
+            <Button 
+              variant="primary" 
+              onClick={() => handleIncluirItem()}
+              disabled={!produto.PRODUTOS_ID || !produto.ITEM_VENDA_QTD || !produto.ITEM_VENDA_PRECO}
+            >
               Salvar
             </Button>
           </div>
@@ -199,13 +235,17 @@ function CrudVenda() {
                 <td>{item.PRODUTOS_ID}</td>
                 <td>{item.PRODUTO_NOME}</td>
                 <td>{item.ITEM_VENDA_QTD}</td>
-                <td>{item.ITEM_VENDA_PRECO}</td>
-                <td>{item.ITEM_VENDA_QTD * item.ITEM_VENDA_PRECO}</td>
+                <td>{formatarValorParaReal(item.ITEM_VENDA_PRECO)}</td>
+                <td>{formatarValorParaReal(item.ITEM_VENDA_QTD * item.ITEM_VENDA_PRECO)}</td>
                 <td className='table-status'>
                   <Button variant="warning" onClick={() => handleEditarItem(index)}>
                     Editar
                   </Button>
-                  <Button variant="danger" onClick={() => handleExcluirItem(index)}>
+                  <Button 
+                    variant="danger" 
+                    onClick={() => handleExcluirItem(index)}
+                    disabled={produto.PRODUTO_SENDO_EDITADO}
+                  >
                     Excluir
                   </Button>
                 </td>
@@ -225,11 +265,13 @@ function CrudVenda() {
         <button 
           className='btn btn-success'
           onClick={() => console.log('Salvar')}
+          disabled={produto.PRODUTO_SENDO_EDITADO}
         >
           Salvar
         </button>
       </div>
       <PesquisarClienteModal />
+      <PesquisarProdutoModal />
     </>
   );
 }

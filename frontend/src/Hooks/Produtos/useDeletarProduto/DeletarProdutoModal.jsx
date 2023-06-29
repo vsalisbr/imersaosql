@@ -10,7 +10,7 @@ function DeletarProdutoModal ({ showModal, setShowModal, produtos_id }) {
 
   useEffect(() => {
     if(showModal){
-      const endPoint = `http://localhost:9090/produtos/${produtos_id}`;
+      const endPoint = `http://localhost:9090/produtos/byid/${produtos_id}`;
       fetch(endPoint)
         .then((res) => res.json())
         .then((data) => {

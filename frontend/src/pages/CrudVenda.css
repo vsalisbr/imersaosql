@@ -94,3 +94,8 @@ legend {
 .btn-cancelar-edit {
   margin-right: 6px;
 }
+
+.page-title{
+  display: flex;
+  justify-content: space-between;
+}
