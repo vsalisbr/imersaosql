@@ -15,16 +15,18 @@ legend {
   display: flex;
   align-items: end;
   font-size: 14px;
-  width: 100%;
+}
+
+.div-cliente-id{
+  width: 150px;
+  margin-right: 8px;
 }
 
 .input-cliente-id {
   height: 30px;
-  width: 30px;
   font-size: 15px;
   color: rgb(30, 30, 30);
   text-align: center;
-  margin-right: 8px;
 }
 
 .input-cliente-name {
@@ -36,10 +38,26 @@ legend {
   flex-grow: 1;
 }
 
-.btn-search {
+.btn-ico {
   display: flex;
   height: 30px;
-  width: 30px;
+  width: 40px;
   justify-content: center;
   align-items: center;
+  color: black;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 3px;
+}
+
+.btn-ico:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.btn-ico:active {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.btn-ico i {
+  color: rgb(40, 40, 40);
 }

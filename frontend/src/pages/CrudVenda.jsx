@@ -32,23 +32,27 @@ function CrudVenda() {
         {vendasId !== 'novavenda' ? `Exibindo Venda ID ${vendasId}` : 'Nova Venda'}
       </div>     
 
-
-
       <fieldset className="select-cliente">
         <legend>Cliente</legend>
         <section className="section-search-cliente">
+          <div className='div-cliente-id'>
+            <input
+              className="form-control input-cliente-id"
+              type="text"
+              autoFocus
+              name="CLIENTES_ID"
+              value={venda.CLIENTES_ID}
+              onChange={() => console.log('onChange')}
+              placeholder="ID"
+            />
+          </div>
           <input
-            type="text"
-            autoFocus
-            name="CLIENTES_ID"
-            className="form-control input-cliente-id"
-            placeholder="ID"
-          />
-          <input
+            className="form-control input-cliente-name"
             type="text"
             name="CLIENTE_NOME"
-            className="form-control input-cliente-name"
-            placeholder="Descrição"
+            value={venda.CLIENTE_NOME}
+            onChange={() => console.log('onChange')}
+            placeholder="Nome"
           />
           <button
             className="btn-ico"
