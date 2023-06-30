@@ -1,4 +1,5 @@
-# README - Execução do Projeto
+# Imersão SQL
+
 
 Desenvolvi esse projeto como parte do evento Imersão SQL, que organizei enquanto era EmbaixaTrybe na escola Trybe. A aplicação utiliza tecnologias como Docker, React, JavaScript, CSS, HTML, Bootstrap, Node.js, Express e um banco de dados relacional.
 
@@ -15,7 +16,17 @@ Neste repositório, você encontrará o código-fonte completo, bem como instru�
 ## Passos para execução
 
 1. Faça o clone do projeto em sua máquina.
+
+```
+git clone git@github.com:vsalisbr/imersaosql.git
+```
+
 2. Pelo terminal, navegue até a pasta raiz do projeto onde se encontra o arquivo `docker-compose.yml`.
+
+```
+cd imersaosql
+```
+
 3. Execute o seguinte comando para construir e executar os contêineres do projeto em segundo plano:
 
    ```bash
