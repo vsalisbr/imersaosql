@@ -35,3 +35,12 @@ Neste repositório, você encontrará o código-fonte completo, bem como instru�
 Após a conclusão desses passos, o projeto estará em execução com os contêineres configurados corretamente.
 
 Acesse o frontend em: http://localhost:9080/
+
+## Contato
+
+- Email <vsalis@live.com>
+- Linkedin <https://linkedin.com/in/vsalis/>
+
+## Licença
+
+[MIT](LICENSE) Copyright (c) 2023, Victor Salis Muniz.
