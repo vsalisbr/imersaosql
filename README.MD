@@ -1,4 +1,5 @@
 # Imersão SQL
+### Sistema para cadastro de Clientes, Produtos e registro de Vendas.
 
 
 Desenvolvi esse projeto como parte do evento Imersão SQL, que organizei enquanto era EmbaixaTrybe na escola Trybe. A aplicação utiliza tecnologias como Docker, React, JavaScript, CSS, HTML, Bootstrap, Node.js, Express e um banco de dados relacional.
