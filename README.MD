@@ -17,15 +17,15 @@ Neste repositório, você encontrará o código-fonte completo, bem como instru�
 
 1. Faça o clone do projeto em sua máquina.
 
-```
-git clone git@github.com:vsalisbr/imersaosql.git
-```
+   ```bash
+   git clone git@github.com:vsalisbr/imersaosql.git
+   ```
 
 2. Pelo terminal, navegue até a pasta raiz do projeto onde se encontra o arquivo `docker-compose.yml`.
 
-```
-cd imersaosql
-```
+   ```bash
+   cd imersaosql
+   ```
 
 3. Execute o seguinte comando para construir e executar os contêineres do projeto em segundo plano:
 
