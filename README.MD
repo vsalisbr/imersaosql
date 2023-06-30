@@ -1,6 +1,10 @@
 # README - Execução do Projeto
 
-Este é um guia básico para executar o projeto. Certifique-se de ter o Docker instalado em sua máquina antes de começar.
+Desenvolvi esse projeto como parte do evento Imersão SQL, que organizei enquanto era EmbaixaTrybe na escola Trybe. A aplicação utiliza tecnologias como Docker, React, JavaScript, CSS, HTML, Bootstrap, Node.js, Express e um banco de dados relacional.
+
+O objetivo principal do evento era aprofundar os conhecimentos em SQL, por meio de uma abordagem prática. Através dessa aplicação full stack, foi possível explorar como a comunicação e utilização de um banco de dados são essenciais no desenvolvimento de uma aplicação. Os participantes puderam aprender sobre operações de CRUD, cadastro de clientes, produtos e realização de vendas.
+
+Neste repositório, você encontrará o código-fonte completo, bem como instruções detalhadas sobre como configurar e executar a aplicação localmente. Espero que seja útil para aqueles que desejam aprofundar seus conhecimentos em desenvolvimento de aplicações web, especialmente no contexto de interação com bancos de dados. Sinta-se à vontade para explorar, contribuir e fornecer feedback.
 
 ## Pré-requisitos
 
