@@ -8,6 +8,8 @@ O objetivo principal do evento era aprofundar os conhecimentos em SQL, por meio 
 
 Neste repositório, você encontrará o código-fonte completo, bem como instruções detalhadas sobre como configurar e executar a aplicação localmente. Espero que seja útil para aqueles que desejam aprofundar seus conhecimentos em desenvolvimento de aplicações web, especialmente no contexto de interação com bancos de dados. Sinta-se à vontade para explorar, contribuir e fornecer feedback.
 
+Deseja assistir o evento? [Clique aqui para acessar a playlist no youtube](https://www.youtube.com/playlist?list=PLS_fPPRrvxeeyizXBGVtZ3QOFxAj2Q8v7)
+
 ![Screenshot of project operation](cover.png)
 
 ## Pré-requisitos
